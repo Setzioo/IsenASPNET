@@ -20,7 +20,8 @@ namespace Isen.Dotnet.Web.Controllers
         protected override IQueryable<Role> BaseQuery() =>
             base.BaseQuery()
                 // Inclure BirthCity lors d'une requête faite sur une ville
-                .Include(p => p.PersonRoles);
+                .Include(r => r.PersonRoles)
+                .ThenInclude(pr => pr.Person);
                 // Filtrer sur les villes qui commencent par Toul
                 //.Where(p => p.BirthCity.StartsWith("Toul"))
                 // Trier par ordre alpha des villes

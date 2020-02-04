@@ -109,8 +109,31 @@
             </div>
         </div>
     </div>
-
-    
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="Role">Role</label>
+                @Html.DropDownListFor(
+                    // Quel est le champ du modèle que l'on 
+                    // met à jour avec cette liste ?
+                    p => p.PersonRoles,
+                    // Liste des éléments
+                    new SelectList(
+                        // La liste
+                        _context.RoleCollection,
+                        // Le champ d'id
+                        "Id",
+                        // Le champ de libellé
+                        "Name"
+                    ),
+                    // Item par défaut
+                    "Sélectionnez un role...",
+                    // Classe CSS
+                    new { @class = "form-control", @multiple = "multiple" }
+                )
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="row">

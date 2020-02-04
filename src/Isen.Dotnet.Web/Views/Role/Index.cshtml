@@ -10,6 +10,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Personnes</th>
                 <th scope="col">Action...</th>
             </tr>
         </thead>
@@ -19,6 +20,12 @@
             <tr>
                 <th scope="row">@role.Id</th>
                 <td>@role.Name</td>
+                <td><ul>
+                    @foreach(var pr in role.PersonRoles)
+                    {
+                        <li>@pr.Person.FirstName @pr.Person.LastName</li>
+                    }
+                </ul></td>
                 <td>
                     <a class="btn btn-outline-primary"
                         asp-controller="Role"
