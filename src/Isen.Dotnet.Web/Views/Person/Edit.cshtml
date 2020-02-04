@@ -37,9 +37,27 @@
         </div>
     </div>
 
+    @{
+    var dateTimeString = "";
+    if (Model?.DateOfBirth != null) 
+        dateTimeString = Model.DateOfBirth.Value.ToString("dd/MM/yyyy");
+    }
+
     <h3>Informations <small>de la personne</small></h3>
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="DateOfBirth">Date de naissance</label>
+                <input
+                    id="DateOfBirth"
+                    type="text"
+                    class="form-control"
+                    placeholder="jj/mm/aaaa"
+                    asp-for="DateOfBirth"
+                    value="@dateTimeString" />
+            </div>
+        </div>
+        <div class="col-4">
             <div class="form-group">
                 <label for="PhoneNumber">Numéro de téléphone</label>
                 <input
@@ -51,7 +69,7 @@
                     value="@Model?.PhoneNumber" />
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-4">
             <div class="form-group">
                 <label for="Mail">Mail</label>
                 <input
@@ -92,26 +110,9 @@
         </div>
     </div>
 
-    @{
-        var dateTimeString = "";
-        if (Model?.DateOfBirth != null) 
-            dateTimeString = Model.DateOfBirth.Value.ToString("dd/MM/yyyy");
-    }
+    
 
     <div class="row">
-        <div class="col-12">
-            <div class="form-group">
-                <label for="DateOfBirth">Date de naissance</label>
-                <input
-                    id="DateOfBirth"
-                    type="text"
-                    class="form-control"
-                    placeholder="jj/mm/aaaa"
-                    asp-for="DateOfBirth"
-                    value="@dateTimeString" />
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Valider</button>

@@ -22,9 +22,11 @@ namespace Isen.Dotnet.Web.Controllers
             base.BaseQuery()
                 // Inclure BirthCity lors d'une requête faite sur une ville
                 .Include(p => p.Service)
+                .Include(p => p.PersonRoles)
+                .ThenInclude(pr => pr.Role);
                 // Filtrer sur les villes qui commencent par Toul
                 //.Where(p => p.BirthCity.StartsWith("Toul"))
                 // Trier par ordre alpha des villes
-                .OrderBy(p => p.Service.Name);
+                //.OrderBy(p => p.Service.Name);
     }
 }

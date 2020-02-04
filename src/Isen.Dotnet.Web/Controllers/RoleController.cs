@@ -15,6 +15,15 @@ namespace Isen.Dotnet.Web.Controllers
             ILogger<RoleController> logger,
             ApplicationDbContext context) : base(logger, context)
         {
-        }               
+        }   
+
+        protected override IQueryable<Role> BaseQuery() =>
+            base.BaseQuery()
+                // Inclure BirthCity lors d'une requête faite sur une ville
+                .Include(p => p.PersonRoles);
+                // Filtrer sur les villes qui commencent par Toul
+                //.Where(p => p.BirthCity.StartsWith("Toul"))
+                // Trier par ordre alpha des villes
+                //.OrderBy(p => p.Service.Name);            
     }
 }

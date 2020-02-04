@@ -62,6 +62,15 @@ namespace Isen.Dotnet.Library.Services
                 return services[_random.Next(services.Count)];
             }
         }
+         // Générateur de Role
+        private Role RandomRole
+        {
+            get
+            {
+                var roles = _context.RoleCollection.ToList();
+                return roles[_random.Next(roles.Count)];
+            }
+        }
 
         // Générateur de date
         private DateTime RandomDate =>
@@ -84,15 +93,27 @@ namespace Isen.Dotnet.Library.Services
             {
                 var first = RandomFirstName;
                 var last = RandomLastName;
-                return new Person()
+                var role = RandomRole;
+                var person = new Person()
                 {
                     FirstName = first,
                     LastName = last,
                     DateOfBirth = RandomDate,
                     PhoneNumber = RandomPhoneNumber,
                     Mail = $"{first}.{last}@mail.com",
-                    Service = RandomService
+                    Service = RandomService,
+                    PersonRoles = new List<PersonRole>()
                 };
+
+                person.PersonRoles.Add(new PersonRole()
+                {
+                    Person = person,
+                    PersonId = person.Id,
+                    Role = role,
+                    RoleId = role.Id
+                });
+
+                return person;
             }
         }
 

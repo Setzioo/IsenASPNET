@@ -10,4 +10,6 @@ namespace Isen.Dotnet.Library.Model
         public int RoleId { get; set; }
         public Role Role { get; set; }
     }
+
+    
 }
