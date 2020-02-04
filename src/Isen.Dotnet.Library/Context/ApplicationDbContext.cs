@@ -8,7 +8,8 @@ namespace Isen.Dotnet.Library.Context
     {        
         // Listes des classes modèle / tables
         public DbSet<Person> PersonCollection { get; set; }
-        public DbSet<City> CityCollection { get; set; }
+        public DbSet<Role> RoleCollection { get; set; }
+        public DbSet<Service> ServiceCollection { get; set; }
 
         public ApplicationDbContext(
             [NotNullAttribute] DbContextOptions options) : 
@@ -25,17 +26,15 @@ namespace Isen.Dotnet.Library.Context
                 .Entity<Person>()
                 // ... à la table Person
                 .ToTable(nameof(Person))
-                // Description de la relation Person.BirthCity
-                .HasOne(p => p.BirthCity)
+                // Description de la relation Person.Service
+                .HasOne(p => p.Service)
                 // Relation réciproque (omise)
                 .WithMany()
                 // Clé étrangère qui porte cette relation
-                .HasForeignKey(p => p.BirthCityId);
-            // Pareil pour ResidenceCity
-            modelBuilder.Entity<Person>()
-                .HasOne(p => p.ResidenceCity)
-                .WithMany()
-                .HasForeignKey(p => p.ResidenceCityId);
+                .HasForeignKey(p => p.ServiceId);
+
+            
+
             // Et utiliser le champ Id comme clé primaire
             // Déclaration optionnelle, car le nommage
             // Id ou PersonId est reconnu comme convention
@@ -43,11 +42,28 @@ namespace Isen.Dotnet.Library.Context
             modelBuilder.Entity<Person>()
                 .HasKey(p => p.Id);
 
-            // Pareil pour City
+            // Pareil pour Role
             modelBuilder
-                .Entity<City>()
-                .ToTable(nameof(City))
-                .HasKey(c => c.Id);
+                .Entity<Role>()
+                .ToTable(nameof(Role))
+                .HasKey(r => r.Id);
+            // Pareil pour Service
+            modelBuilder
+                .Entity<Service>()
+                .ToTable(nameof(Service))
+                .HasKey(s => s.Id);
+
+                // Relation many to many PersonRole
+            modelBuilder.Entity<PersonRole>()
+                .HasKey(pr => new { pr.PersonId, pr.RoleId });  
+            modelBuilder.Entity<PersonRole>()
+                .HasOne(pr => pr.Person)
+                .WithMany(p => p.PersonRoles)
+                .HasForeignKey(pr => pr.PersonId);  
+            modelBuilder.Entity<PersonRole>()
+                .HasOne(pr => pr.Role)
+                .WithMany(r => r.PersonRoles)
+                .HasForeignKey(pr => pr.RoleId);
         }
 
     }
