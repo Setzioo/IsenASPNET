@@ -2,7 +2,9 @@
     ViewData["Title"] = "Edition d'un role";
 }
 @using Isen.Dotnet.Library.Model;
+@using Isen.Dotnet.Library.Context;
 @model Role;
+@inject ApplicationDbContext _context;
 
 <h2>Création ou édition <small>d'un role</small></h2>
 <form class="form-group" asp-action="Edit">
@@ -18,6 +20,22 @@
                     placeholder="Nom du role"
                     asp-for="Name"
                     value="@Model?.Name" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+
+                @foreach(var p in _context.PersonCollection)
+                {
+                    @foreach(var pr in Model.PersonRoles)
+                    {
+                        <label for="Role">@p.FirstName @p.LastName</label>
+                        @Html.CheckBox("p.Id==pr.PersonId", p.Id==pr.PersonId)
+                    }
+                }
+                
             </div>
         </div>
     </div>

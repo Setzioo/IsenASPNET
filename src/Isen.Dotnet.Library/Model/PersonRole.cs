@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Isen.Dotnet.Library.Model
 {
-    public class PersonRole
+    public class PersonRole : BaseEntity
     {
         public int PersonId { get; set; }
         public Person Person { get; set; }
