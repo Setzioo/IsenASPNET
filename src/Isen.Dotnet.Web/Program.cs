@@ -28,8 +28,8 @@ namespace Isen.Dotnet.Web
                     .ServiceProvider.GetService<IDataInitializer>();
                 dataInitializer.DropDatabase();
                 dataInitializer.CreateDatabase();
-                dataInitializer.AddRoles();
                 dataInitializer.AddServices();
+                dataInitializer.AddRoles();
                 dataInitializer.AddPersons();
             }
             // l'exécuter

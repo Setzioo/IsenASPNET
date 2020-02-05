@@ -22,23 +22,19 @@
                     value="@Model?.Name" />
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
+         <div class="col-6">
             <div class="form-group">
-
                 @foreach(var p in _context.PersonCollection)
                 {
-                    @foreach(var pr in Model.PersonRoles)
-                    {
+                    <div class="row">
+                        @Html.CheckBox("checkbox"+p.Id, Model.PersonRoles.Where(pr => p.Id == pr.PersonId).Any(), new { OnClick="updatePersonRole("+p.Id+")"})
                         <label for="Role">@p.FirstName @p.LastName</label>
-                        @Html.CheckBox("p.Id==pr.PersonId", p.Id==pr.PersonId)
-                    }
+                    </div>
                 }
-                
             </div>
         </div>
     </div>
+       
 
     <div class="row">
         <div class="col-12">
@@ -48,3 +44,18 @@
     </div>
 
 </form>        
+
+<script>
+    function updatePersonRole(personId) {
+        var roleId = '@Model.Id';
+        var checkbox = document.getElementById("checkbox"+personId);
+        if(checkbox.checked)
+        {
+            console.log("Il faut ajouter la relation");
+        }
+        else
+        {
+            console.log("Il faut supprimer la relation");
+        }
+     }
+</script>
